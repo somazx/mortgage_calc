@@ -63,7 +63,6 @@ var Calculator = React.createClass({
     var loanAmount = this.loanAmount();
     return (
       <form role="form" className="form-horizontal">
-
         <div className="form-group">
           <label htmlFor="homePrice">Home Price</label>
           <div className="input-group input-group-lg">
@@ -75,7 +74,6 @@ var Calculator = React.createClass({
             />
           </div>
         </div>
-
         <div className="form-group">
           <label htmlFor="depositAmount">Deposit Amount</label>
           <div className="input-group input-group-lg">
@@ -87,7 +85,6 @@ var Calculator = React.createClass({
             />
           </div>
         </div>
-
         <div className="form-group">
           <label htmlFor="loanAmount">Loan Amount</label>
           <div className="input-group input-group-lg">
@@ -97,7 +94,6 @@ var Calculator = React.createClass({
               value={loanAmount} disabled />
           </div>
         </div>
-
         <div className="form-group">
           <div className="row">
             <div className="col-lg-6">
@@ -115,12 +111,10 @@ var Calculator = React.createClass({
                 Amortization Period
               </label>
               <div className="input-group input-group-lg">
-
                 <select id="amortizationPeriod"
                   className="form-control"
                   onChange={this.amortizationPeriod}
-                  value={this.state.amortizationPeriod}
-                >
+                  value={this.state.amortizationPeriod}>
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -132,17 +126,16 @@ var Calculator = React.createClass({
                   <option>25</option>
                   <option>30</option>
                 </select>
-
               </div>
             </div>
           </div>
         </div>
-
-
       </form>
     );
   }
 });
 
 
-React.render(<Calculator />, document.getElementById('calculator'));
+React.render(<Calculator />,
+  document.getElementById('calculator')
+);
