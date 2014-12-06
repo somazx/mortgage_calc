@@ -7,26 +7,49 @@
 */
 
 var Calculator = React.createClass({displayName: 'Calculator',
+  // HELPER METHODS
+  calcPir: function() {
+    // formula for calculating periodic interest rate
+    // ((1+(iR÷2))^2)^(1÷12)−1
+    var iR = this.state.interestRate/100;
+    var powerA = 1+(iR/2);
+    var powerB = (1/12);
+    return Math.pow(Math.pow(powerA,2),powerB)-1;
+  },
+
+  calcPmp: function() {
+    // formula
+    // m is amortizationPeriod * 12
+    // (Ip*Pir)/(1-(1+Pir)^(-m))
+    var Ip  = this.state.homePrice;
+    var Pir = this.calcPir();
+    var m   = this.state.amortizationPeriod * 12;
+
+    return (Ip*Pir)/(1-Math.pow(1+Pir, m*-1));
+  },
+
+
   getInitialState: function() {
       return {
         homePrice: 400000,
         depositAmount: 80000,
         amortizationPeriod: 25,
-        interestRate: 3.5,
-        amortizationPeriod: 25
+        interestRate: 3.5
       };
   },
+
   priceChange: function(e) {
-    this.setState({homePrice: e.target.value});
+    this.setState({homePrice: Number(e.target.value)});
   },
   depositChange: function(e) {
-    this.setState({depositAmount: e.target.value});
+    this.setState({depositAmount: Number(e.target.value)});
   },
   interestRate: function(e) {
     this.setState({interestRate: e.target.value});
+    console.log({Pir: this.calcPir(), Pmp: this.calcPmp()});
   },
   amortizationPeriod: function(e) {
-    this.setState({amortizationPeriod: e.target.value});
+    this.setState({amortizationPeriod: Number(e.target.value)});
   },
   loanAmount: function() {
     return Number(this.state.homePrice) - Number(this.state.depositAmount);
@@ -110,6 +133,7 @@ var Calculator = React.createClass({displayName: 'Calculator',
             )
           )
         )
+
 
       )
     );
