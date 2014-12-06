@@ -9,8 +9,11 @@
 var Calculator = React.createClass({
   getInitialState: function() {
       return {
-        homePrice: 0,
-        depositAmount: 0
+        homePrice: 400000,
+        depositAmount: 80000,
+        amortizationPeriod: 25,
+        interestRate: 3.5,
+        amortizationPeriod: 25
       };
   },
   priceChange: function(e) {
@@ -19,6 +22,12 @@ var Calculator = React.createClass({
   depositChange: function(e) {
     this.setState({depositAmount: e.target.value});
   },
+  interestRate: function(e) {
+    this.setState({interestRate: e.target.value});
+  },
+  amortizationPeriod: function(e) {
+    this.setState({amortizationPeriod: e.target.value});
+  },
   loanAmount: function() {
     return Number(this.state.homePrice) - Number(this.state.depositAmount);
   },
@@ -26,13 +35,85 @@ var Calculator = React.createClass({
   render: function() {
     var loanAmount = this.loanAmount();
     return (
-      <div>
-        <input onChange={this.priceChange} placeholder="Home Price" />
-        <input onChange={this.depositChange} placeholder="Deposit Amount" />
-        Loan Amount: $<input value={loanAmount} disabled />
-      </div>
+      <form role="form" className="form-horizontal">
+
+        <div className="form-group">
+          <label htmlFor="homePrice">Home Price</label>
+          <div className="input-group input-group-lg">
+            <span className="input-group-addon">$</span>
+            <input id="homePrice"
+              className="form-control"
+              onChange={this.priceChange}
+              value={this.state.homePrice}
+            />
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="depositAmount">Deposit Amount</label>
+          <div className="input-group input-group-lg">
+            <span className="input-group-addon">$</span>
+            <input id="depositAmount"
+              className="form-control"
+              onChange={this.depositChange}
+              value={this.state.depositAmount}
+            />
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="loanAmount">Loan Amount</label>
+          <div className="input-group input-group-lg">
+            <span className="input-group-addon">$</span>
+            <input id="loanAmount"
+              className="form-control"
+              value={loanAmount} disabled />
+          </div>
+        </div>
+
+        <div className="form-group">
+          <div className="row">
+            <div className="col-lg-6">
+              <label htmlFor="interestRate">Interest Rate</label>
+              <div className="input-group input-group-lg">
+                <input id="interestRate"
+                  className="form-control"
+                  onChange={this.interestRate}
+                  value={this.state.interestRate}/>
+                <span className="input-group-addon">%</span>
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <label htmlFor="amortizationPeriod">
+                Amortization Period
+              </label>
+              <div className="input-group input-group-lg">
+
+                <select id="amortizationPeriod"
+                  className="form-control"
+                  onChange={this.amortizationPeriod}
+                  value={this.state.amortizationPeriod}
+                >
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>10</option>
+                  <option>15</option>
+                  <option>20</option>
+                  <option>25</option>
+                  <option>30</option>
+                </select>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
     );
-  },
+  }
 });
 
 
