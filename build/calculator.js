@@ -25,7 +25,7 @@ var Calculator = React.createClass({displayName: 'Calculator',
         m: ammortizaiton period in months
         (Ip*Pir)/(1-(1+Pir)^(-m))
     */
-    var Ip  = this.state.homePrice;
+    var Ip  = this.state.homePrice - this.state.depositAmount;
     var Pir = this.calcPir();
     var m   = this.state.amortizationPeriod * 12;
 
