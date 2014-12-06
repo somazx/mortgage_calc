@@ -18,9 +18,13 @@ var Calculator = React.createClass({displayName: 'Calculator',
   },
 
   calcPmp: function() {
-    // formula
-    // m is amortizationPeriod * 12
-    // (Ip*Pir)/(1-(1+Pir)^(-m))
+    /*
+        formula for calculating monthly payments
+        Ip: initial principal
+        Pir: period interest rate
+        m: ammortizaiton period in months
+        (Ip*Pir)/(1-(1+Pir)^(-m))
+    */
     var Ip  = this.state.homePrice;
     var Pir = this.calcPir();
     var m   = this.state.amortizationPeriod * 12;
