@@ -39,13 +39,15 @@ var CalculatorApp = React.createClass({
 
   onChange: function(state, newValue) {
     var newState = {};
-    newState[state] = Number(newValue);
+    newState[state] = newValue;
     this.setState(newState);
   },
 
   render: function() {
-    var loanAmount = this.loanAmount();
+    var loanAmount    = this.loanAmount();
+    var paymentAmount = this.calcPmp();
     console.log(this.state);
+
     return (
       <form role="form" className="form-horizontal">
         <div className="form-group">
@@ -96,6 +98,17 @@ var CalculatorApp = React.createClass({
                   className="form-control"
                   onChange={this.onChange}
                   amortizationPeriod={this.state.amortizationPeriod} />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="form-group">
+          <div className="row">
+            <div className="col-lg-6">
+              <label htmlFor="paymentAmount">Monthly Payment Amount</label>
+              <div className="input-group input-group-lg">
+                <span className="input-group-addon">$</span>
+                <PaymentAmount className="form-control" paymentAmount={paymentAmount} />
               </div>
             </div>
           </div>
