@@ -43,6 +43,15 @@ var LoanAmount = React.createClass({
   }
 });
 
+var PaymentAmount = React.createClass({
+  render: function() {
+    return (
+      <input type="number" className={this.props.className}
+       value={this.props.paymentAmount.toFixed(2)} disabled />
+    );
+  }
+});
+
 var InterestRate = React.createClass({
   updateInterestRate: function(e) {
     this.props.onChange('interestRate', e.target.value);
