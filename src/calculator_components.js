@@ -90,3 +90,75 @@ var AmortizationPeriod = React.createClass({
     );
   }
 });
+
+var PaymentRow = React.createClass({
+  render: function() {
+    return (
+      <tr>
+        <td>{this.props.number}</td>
+        <td className="amount">{this.props.payment}</td>
+        <td className="amount">{this.props.interest}</td>
+        <td className="amount">{this.props.principal}</td>
+        <td className="amount">{this.props.balance}</td>
+      </tr>
+    );
+  }
+});
+
+var PaymentTable = React.createClass({
+  render: function() {
+    var paymentRows = [];
+    var principal = this.props.loanAmount;
+    var pAM  = Number(this.props.paymentAmount).toFixed(2);
+    var pIR  = Number(this.props.monthlyInterestRate);
+    var key  = 0;
+
+    while(principal > 0)
+    {
+      key++;
+      payment = pAM;
+      pi      = (principal * pIR).toFixed(2);
+      pp      = (payment - pi);
+      principal = principal - pp;
+
+      // TODO fix bug when final payment nears zero:
+      //      can recrate with loan amount ie 299991
+      if (principal < 0) {
+        payment = (Number(payment) + Number(principal)).toFixed(2);
+        pp      = (payment - pi);
+        principal = 0;
+      }
+
+      paymentRows.push(
+        <PaymentRow
+          key       ={key}
+          number    ={'#' + String(key)}
+          payment   ={'$' + String(payment)}
+          interest  ={'$' + String(pi)}
+          principal ={'$' + String(pp.toFixed(2))}
+          balance   ={'$' + String(principal.toFixed(2))}
+          />
+      );
+    }
+
+    return (
+      <table className="table table-hover table-condensed table-payments">
+        <thead>
+          <tr>
+            <th>Payment #</th>
+            <th className="amount">Payment</th>
+            <th className="amount">Interest</th>
+            <th className="amount">Principal</th>
+            <th className="amount">Balance</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <PaymentRow balance={'$' + String(this.props.loanAmount.toFixed(2))} />
+
+          {paymentRows}
+        </tbody>
+      </table>
+    );
+  }
+});

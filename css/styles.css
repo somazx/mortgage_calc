@@ -1,0 +1,39 @@
+.table-payments .amount {
+  text-align: right;
+}
+
+.table-payments {
+  width: 100%;
+}
+
+.table-payments thead, .table-payments tbody,
+.table-payments tr, .table-payments td,
+.table-payments th { display: block; }
+
+.table-payments tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+
+.table-payments thead th {
+    height: 30px;
+
+    /*text-align: left;*/
+}
+
+.table-payments tbody {
+    height: 600px;
+    overflow-y: auto;
+}
+
+.table-payments thead {
+    /* fallback */
+}
+
+.table-payments tbody td, .table-payments thead th {
+    width: 19.2%;
+    float: left;
+}
