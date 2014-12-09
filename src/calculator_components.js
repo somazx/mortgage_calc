@@ -5,6 +5,7 @@
 
   Now stand back, and let me work code maijck.
 */
+"use strict";
 
 var HomePrice = React.createClass({
   updateHomePrice: function(e) {
@@ -112,6 +113,10 @@ var PaymentTable = React.createClass({
     var pAM  = Number(this.props.paymentAmount).toFixed(2);
     var pIR  = Number(this.props.monthlyInterestRate);
     var key  = 0;
+
+    var payment = null,
+        pi = null,
+        pp = null
 
     while(principal > 0)
     {
