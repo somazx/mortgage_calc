@@ -126,14 +126,6 @@ var PaymentTable = React.createClass({
       pp      = (payment - pi);
       principal = principal - pp;
 
-      // TODO fix bug when final payment nears zero:
-      //      can recrate with loan amount ie 299991
-      if (principal < 0) {
-        payment = (Number(payment) + Number(principal)).toFixed(2);
-        pp      = (payment - pi);
-        principal = 0;
-      }
-
       paymentRows.push(
         <PaymentRow
           key       ={key}

@@ -124,6 +124,9 @@ var CalculatorApp = React.createClass({displayName: 'CalculatorApp',
         ), 
 
         React.createElement("div", {className: "col-md-6"}, 
+          React.createElement(YearlyPaymentsChart, {width: 400, height: 300, 
+            loanAmount: loanAmount, 
+            paymentAmount: paymentAmount}), 
           React.createElement(PaymentTable, {
             loanAmount: loanAmount, 
             paymentAmount: paymentAmount, 
