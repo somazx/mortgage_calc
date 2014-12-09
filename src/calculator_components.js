@@ -5,6 +5,7 @@
 
   Now stand back, and let me work code maijck.
 */
+"use strict";
 
 var HomePrice = React.createClass({
   updateHomePrice: function(e) {
@@ -113,6 +114,10 @@ var PaymentTable = React.createClass({
     var pIR  = Number(this.props.monthlyInterestRate);
     var key  = 0;
 
+    var payment = null,
+        pi = null,
+        pp = null
+
     while(principal > 0)
     {
       key++;
@@ -120,14 +125,6 @@ var PaymentTable = React.createClass({
       pi      = (principal * pIR).toFixed(2);
       pp      = (payment - pi);
       principal = principal - pp;
-
-      // TODO fix bug when final payment nears zero:
-      //      can recrate with loan amount ie 299991
-      if (principal < 0) {
-        payment = (Number(payment) + Number(principal)).toFixed(2);
-        pp      = (payment - pi);
-        principal = 0;
-      }
 
       paymentRows.push(
         <PaymentRow
