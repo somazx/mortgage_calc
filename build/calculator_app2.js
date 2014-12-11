@@ -8,32 +8,35 @@ var CalculatorApp = React.createClass({displayName: 'CalculatorApp',
     return Math.pow(Math.pow(powerA,2),powerB)-1;
   },
 
-  paymentFrequencyFunc: function() {
-    var frequency = null;
-    switch (this.state.paymentFrequency) {
-    case "Monthly":
-      frequency = (1/12);
-      break;
-    case "Semi-Monthly":
-      frequency = 24;
-      break;
-    case "Bi-weekly":
-      frequency = 26;
-      break;
-    case "Weekly":
-      frequency = 52;
-      break;
-    }
+  weeklyInterestRate: function() {
+    // formula for calculating periodic interest rate
+    // ((1+(iR÷2))^2)^(1÷12)−1
+    var iR = this.state.interestRate/100;
+    var powerA = 1+(iR/2);
+    var powerB = (7/365);
+    return Math.pow(Math.pow(powerA,2),powerB)-1;
   },
 
   depositPercent: function() {
     return this.state.depositAmount / this.state.homePrice * 100;
   },
 
+  periodPaymentAmount: function() {
+    var amount = this.monthlyPaymentAmount();
+    switch (this.state.paymentFrequency) {
+    case 'Monthly':
+      return amount;
+    case 'Weekly':
+      return amount/4;
+    case 'Bi-weekly':
+      return amount/2;
+    }
+  },
+
   calcPayments: function() {
     var payments = [];
     var principal = this.loanAmount();
-    var pAM  = Number(this.periodPaymentAmount()).toFixed(2);
+    var pAM  = Number(this.monthlyPaymentAmount()).toFixed(2);
     var pIR  = Number(this.monthlyInterestRate());
     var key  = 0;
 
@@ -60,7 +63,7 @@ var CalculatorApp = React.createClass({displayName: 'CalculatorApp',
     return payments;
   },
 
-  periodPaymentAmount: function() {
+  monthlyPaymentAmount: function() {
     /*
         formula for calculating monthly payments
         Ip: initial principal
