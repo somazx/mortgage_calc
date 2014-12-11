@@ -12,9 +12,13 @@ var HomePrice = React.createClass({
     this.props.onChange('homePrice', e.target.value);
   },
 
+  getDefaultProps: function() {
+    inputType: "number"
+  },
+
   render: function() {
     return (
-      <input type="number" className={this.props.className}
+      <input type={this.props.inputType} className={this.props.className}
         value={this.props.homePrice}
         onChange={this.updateHomePrice} />
     );
@@ -92,6 +96,24 @@ var AmortizationPeriod = React.createClass({
   }
 });
 
+var PaymentFrequency = React.createClass({
+  updatePaymentFrequency: function(e) {
+    this.props.onChange('paymentFrequency', e.target.value);
+  },
+
+  render: function() {
+    return (
+      <select className={this.props.className}
+        onChange={this.updatePaymentFrequency}
+        value={this.props.paymentFrequency}>
+        <option>Monthly</option>
+        <option>Bi-weekly</option>
+        <option>Weekly</option>
+      </select>
+    );
+  }
+});
+
 var PaymentRow = React.createClass({
   render: function() {
     return (
@@ -108,35 +130,20 @@ var PaymentRow = React.createClass({
 
 var PaymentTable = React.createClass({
   render: function() {
-    var paymentRows = [];
-    var principal = this.props.loanAmount;
-    var pAM  = Number(this.props.paymentAmount).toFixed(2);
-    var pIR  = Number(this.props.monthlyInterestRate);
-    var key  = 0;
-
-    var payment = null,
-        pi = null,
-        pp = null
-
-    while(principal > 0)
-    {
-      key++;
-      payment = pAM;
-      pi      = (principal * pIR).toFixed(2);
-      pp      = (payment - pi);
-      principal = principal - pp;
-
-      paymentRows.push(
+    var paymentRows = this.props.getPayments().map(function(data, i){
+      console.log(data);
+      return (
         <PaymentRow
-          key       ={key}
-          number    ={'#' + String(key)}
-          payment   ={'$' + String(payment)}
-          interest  ={'$' + String(pi)}
-          principal ={'$' + String(pp.toFixed(2))}
-          balance   ={'$' + String(principal.toFixed(2))}
-          />
+          key       ={i+1}
+          number    ={'#' + String(i+1)}
+          payment   ={'$' + String(data['payment'].toFixed(2))}
+          interest  ={'$' + String(data['interest'].toFixed(2))}
+          principal ={'$' + String(data['principal'].toFixed(2))}
+          balance   ={'$' + String(data['balance'].toFixed(2))}
+        />
       );
-    }
+    });
+
 
     return (
       <table className="table table-hover table-condensed table-payments">
