@@ -12,18 +12,30 @@ var HomePrice = React.createClass({
     this.props.onChange('homePrice', e.target.value);
   },
 
-  getDefaultProps: function() {
-    inputType: "number"
-  },
-
   render: function() {
     return (
-      <input type={this.props.inputType} className={this.props.className}
+      <input type="number" className={this.props.className}
         value={this.props.homePrice}
         onChange={this.updateHomePrice} />
     );
   }
 });
+
+var HomePriceSlider = React.createClass({
+  updateHomePrice: function(e) {
+    this.props.onChange('homePrice', e.target.value);
+  },
+
+  render: function() {
+    return (
+      <input type="range" className={this.props.className}
+        min="20000" max="1000000" step="10000"
+        value={this.props.homePrice}
+        onChange={this.updateHomePrice} />
+    );
+  }
+});
+
 
 var DepositAmount = React.createClass({
   updateDepositAmount: function(e) {
@@ -33,6 +45,21 @@ var DepositAmount = React.createClass({
   render: function() {
     return (
       <input type="number" className={this.props.className}
+        value={this.props.depositAmount}
+        onChange={this.updateDepositAmount} />
+    );
+  }
+});
+
+var DepositAmountSlider = React.createClass({
+  updateDepositAmount: function(e) {
+    this.props.onChange('depositAmount', e.target.value);
+  },
+
+  render: function() {
+    return (
+      <input type="range" className={this.props.className}
+        min="20000" max="1000000" step="10000"
         value={this.props.depositAmount}
         onChange={this.updateDepositAmount} />
     );

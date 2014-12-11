@@ -26,6 +26,10 @@ var CalculatorApp = React.createClass({
     }
   },
 
+  depositPercent: function() {
+    return this.state.depositAmount / this.state.homePrice * 100;
+  },
+
   calcPayments: function() {
     var payments = [];
     var principal = this.loanAmount();
@@ -96,6 +100,7 @@ var CalculatorApp = React.createClass({
     var loanAmount          = this.loanAmount();
     var paymentAmount       = this.periodPaymentAmount();
     var monthlyInterestRate = this.monthlyInterestRate();
+    var depositPercent = this.depositPercent().toFixed(1);
 
     return (
       <div className="row">
@@ -110,6 +115,9 @@ var CalculatorApp = React.createClass({
                   onChange={this.onChange}
                   homePrice={this.state.homePrice} />
               </div>
+              <HomePriceSlider
+                onChange={this.onChange}
+                homePrice={this.state.homePrice} />
             </div>
             <div className="form-group">
               <label htmlFor="depositAmount">Deposit Amount</label>
@@ -119,7 +127,13 @@ var CalculatorApp = React.createClass({
                   className="form-control"
                   onChange={this.onChange}
                   depositAmount={this.state.depositAmount} />
+                <span className="input-group-addon">
+                  {depositPercent}%
+                </span>
               </div>
+              <DepositAmountSlider
+                onChange={this.onChange}
+                depositAmount={this.state.depositAmount} />
             </div>
             <div className="form-group">
               <label htmlFor="loanAmount">Loan Amount</label>

@@ -26,6 +26,10 @@ var CalculatorApp = React.createClass({displayName: 'CalculatorApp',
     }
   },
 
+  depositPercent: function() {
+    return this.state.depositAmount / this.state.homePrice * 100;
+  },
+
   calcPayments: function() {
     var payments = [];
     var principal = this.loanAmount();
@@ -96,6 +100,7 @@ var CalculatorApp = React.createClass({displayName: 'CalculatorApp',
     var loanAmount          = this.loanAmount();
     var paymentAmount       = this.periodPaymentAmount();
     var monthlyInterestRate = this.monthlyInterestRate();
+    var depositPercent = this.depositPercent().toFixed(1);
 
     return (
       React.createElement("div", {className: "row"}, 
@@ -109,7 +114,10 @@ var CalculatorApp = React.createClass({displayName: 'CalculatorApp',
                   className: "form-control", 
                   onChange: this.onChange, 
                   homePrice: this.state.homePrice})
-              )
+              ), 
+              React.createElement(HomePriceSlider, {
+                onChange: this.onChange, 
+                homePrice: this.state.homePrice})
             ), 
             React.createElement("div", {className: "form-group"}, 
               React.createElement("label", {htmlFor: "depositAmount"}, "Deposit Amount"), 
@@ -118,8 +126,14 @@ var CalculatorApp = React.createClass({displayName: 'CalculatorApp',
                 React.createElement(DepositAmount, {
                   className: "form-control", 
                   onChange: this.onChange, 
-                  depositAmount: this.state.depositAmount})
-              )
+                  depositAmount: this.state.depositAmount}), 
+                React.createElement("span", {className: "input-group-addon"}, 
+                  depositPercent, "%"
+                )
+              ), 
+              React.createElement(DepositAmountSlider, {
+                onChange: this.onChange, 
+                depositAmount: this.state.depositAmount})
             ), 
             React.createElement("div", {className: "form-group"}, 
               React.createElement("label", {htmlFor: "loanAmount"}, "Loan Amount"), 
