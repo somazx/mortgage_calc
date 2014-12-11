@@ -8,7 +8,56 @@ var CalculatorApp = React.createClass({
     return Math.pow(Math.pow(powerA,2),powerB)-1;
   },
 
-  monthlyPaymentAmount: function() {
+  paymentFrequencyFunc: function() {
+    var frequency = null;
+    switch (this.state.paymentFrequency) {
+    case "Monthly":
+      frequency = (1/12);
+      break;
+    case "Semi-Monthly":
+      frequency = 24;
+      break;
+    case "Bi-weekly":
+      frequency = 26;
+      break;
+    case "Weekly":
+      frequency = 52;
+      break;
+    }
+  },
+
+  calcPayments: function() {
+    var payments = [];
+    var principal = this.loanAmount();
+    var pAM  = Number(this.periodPaymentAmount()).toFixed(2);
+    var pIR  = Number(this.monthlyInterestRate());
+    var key  = 0;
+
+    var payment = null,
+        pi = null,
+        pp = null
+
+    while(principal > 0)
+    {
+      key++;
+      payment = pAM;
+      pi      = (principal * pIR).toFixed(2);
+      pp      = (payment - pi);
+      principal = principal - pp;
+
+      payments.push({
+        payment:   Number(payment),
+        interest:  Number(pi),
+        principal: pp,
+        balance:   principal
+      });
+    }
+    console.log(payments[0]);
+
+    return payments;
+  },
+
+  periodPaymentAmount: function() {
     /*
         formula for calculating monthly payments
         Ip: initial principal
@@ -28,7 +77,8 @@ var CalculatorApp = React.createClass({
       homePrice: 200000,
       depositAmount: 100000,
       amortizationPeriod: 25,
-      interestRate: 6.0
+      interestRate: 6.0,
+      paymentFrequency: "Weekly"
     };
   },
 
@@ -45,9 +95,8 @@ var CalculatorApp = React.createClass({
 
   render: function() {
     var loanAmount          = this.loanAmount();
-    var paymentAmount       = this.monthlyPaymentAmount();
+    var paymentAmount       = this.periodPaymentAmount();
     var monthlyInterestRate = this.monthlyInterestRate();
-    console.log(this.state);
 
     return (
       <div className="row">
@@ -109,9 +158,23 @@ var CalculatorApp = React.createClass({
             <div className="form-group">
               <div className="row">
                 <div className="col-lg-6">
+                  <label htmlFor="paymentFrequency">
+                    Payment Frequency
+                  </label>
+                  <div className="input-group input-group-lg">
+                    <PaymentFrequency className="form-control"
+                      onChange={this.onChange}
+                      paymentFrequency={this.state.paymentFrequency}/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="row">
+                <div className="col-lg-6">
                   <label
                     htmlFor="paymentAmount"
-                    className="text-primary">Monthly Payment Amount</label>
+                    className="text-primary">{this.state.paymentFrequency} Payment Amount</label>
                   <div className="input-group input-group-lg">
                     <span className="input-group-addon">$</span>
                     <PaymentAmount className="form-control"
@@ -124,10 +187,12 @@ var CalculatorApp = React.createClass({
         </div>
 
         <div className="col-md-6">
+          <YearlyPaymentsChart width={400} height={300}
+            loanAmount={loanAmount}
+            paymentAmount={paymentAmount} />
           <PaymentTable
             loanAmount={loanAmount}
-            paymentAmount={paymentAmount}
-            monthlyInterestRate={monthlyInterestRate} />
+            getPayments={this.calcPayments}/>
         </div>
       </div>
     );
