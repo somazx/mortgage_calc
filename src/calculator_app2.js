@@ -1,19 +1,27 @@
 var CalculatorApp = React.createClass({
-  monthlyInterestRate: function() {
-    // formula for calculating periodic interest rate
-    // ((1+(iR÷2))^2)^(1÷12)−1
-    var iR = this.state.interestRate/100;
-    var powerA = 1+(iR/2);
-    var powerB = (1/12);
-    return Math.pow(Math.pow(powerA,2),powerB)-1;
-  },
+  monthlyInterestRate: function(frequency) {
+    if (frequency == undefined)
+    {
+      frequency = 'Monthly'
+    }
 
-  weeklyInterestRate: function() {
+    var powerB = null;
+    switch (frequency) {
+    case 'Monthly':
+      powerB = (1/12);
+      break;
+    case 'Weekly':
+      powerB = (7/365);
+      break;
+    case 'Bi-weekly':
+      powerB = (14/365);
+      break;
+    }
+
     // formula for calculating periodic interest rate
     // ((1+(iR÷2))^2)^(1÷12)−1
     var iR = this.state.interestRate/100;
     var powerA = 1+(iR/2);
-    var powerB = (7/365);
     return Math.pow(Math.pow(powerA,2),powerB)-1;
   },
 
@@ -34,30 +42,34 @@ var CalculatorApp = React.createClass({
   },
 
   calcPayments: function() {
-    var payments = [];
-    var principal = this.loanAmount();
-    var pAM  = Number(this.monthlyPaymentAmount()).toFixed(2);
-    var pIR  = Number(this.monthlyInterestRate());
-    var key  = 0;
-
-    var payment = null,
+    var payments      = [];
+    var frequency     = this.state.paymentFrequency;
+    var principal     = this.loanAmount();
+    var payment       = Number(this.periodPaymentAmount().toFixed(2));
+    var interestRate  = Number(this.monthlyInterestRate(frequency));
+    var key  = 0,
         pi = null,
         pp = null
 
     while(principal > 0)
     {
       key++;
-      payment = pAM;
-      pi      = (principal * pIR).toFixed(2);
+      pi      = Number((principal * interestRate).toFixed(2));
       pp      = (payment - pi);
       principal = principal - pp;
 
       payments.push({
-        payment:   Number(payment),
-        interest:  Number(pi),
+        payment:   payment,
+        interest:  pi,
         principal: pp,
         balance:   principal
       });
+
+      // fail safe
+      if (key > 5000)
+      {
+        break;
+      }
     }
 
     return payments;
@@ -72,7 +84,7 @@ var CalculatorApp = React.createClass({
         (Ip*Pir)/(1-(1+Pir)^(-m))
     */
     var Ip  = this.state.homePrice - this.state.depositAmount;
-    var Pir = this.monthlyInterestRate();
+    var Pir = this.monthlyInterestRate('Monthly');
     var m   = this.state.amortizationPeriod * 12;
 
     return (Ip*Pir)/(1-Math.pow(1+Pir, m*-1));
