@@ -55,7 +55,8 @@ var CalculatorApp = React.createClass({
     {
       key++;
       pi      = Number((principal * interestRate).toFixed(2));
-      pp      = (payment - pi);
+      payment = (payment > principal + pi) ? principal + pi : payment;
+      pp      = payment - pi;
       principal = principal - pp;
 
       payments.push({
@@ -96,7 +97,7 @@ var CalculatorApp = React.createClass({
       depositAmount: 100000,
       amortizationPeriod: 25,
       interestRate: 6.0,
-      paymentFrequency: "Weekly"
+      paymentFrequency: "Monthly"
     };
   },
 
