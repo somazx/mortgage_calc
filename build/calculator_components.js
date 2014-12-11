@@ -12,18 +12,30 @@ var HomePrice = React.createClass({displayName: 'HomePrice',
     this.props.onChange('homePrice', e.target.value);
   },
 
-  getDefaultProps: function() {
-    inputType: "number"
-  },
-
   render: function() {
     return (
-      React.createElement("input", {type: this.props.inputType, className: this.props.className, 
+      React.createElement("input", {type: "number", className: this.props.className, 
         value: this.props.homePrice, 
         onChange: this.updateHomePrice})
     );
   }
 });
+
+var HomePriceSlider = React.createClass({displayName: 'HomePriceSlider',
+  updateHomePrice: function(e) {
+    this.props.onChange('homePrice', e.target.value);
+  },
+
+  render: function() {
+    return (
+      React.createElement("input", {type: "range", className: this.props.className, 
+        min: "20000", max: "1000000", step: "10000", 
+        value: this.props.homePrice, 
+        onChange: this.updateHomePrice})
+    );
+  }
+});
+
 
 var DepositAmount = React.createClass({displayName: 'DepositAmount',
   updateDepositAmount: function(e) {
@@ -33,6 +45,21 @@ var DepositAmount = React.createClass({displayName: 'DepositAmount',
   render: function() {
     return (
       React.createElement("input", {type: "number", className: this.props.className, 
+        value: this.props.depositAmount, 
+        onChange: this.updateDepositAmount})
+    );
+  }
+});
+
+var DepositAmountSlider = React.createClass({displayName: 'DepositAmountSlider',
+  updateDepositAmount: function(e) {
+    this.props.onChange('depositAmount', e.target.value);
+  },
+
+  render: function() {
+    return (
+      React.createElement("input", {type: "range", className: this.props.className, 
+        min: "20000", max: "1000000", step: "10000", 
         value: this.props.depositAmount, 
         onChange: this.updateDepositAmount})
     );
@@ -130,8 +157,7 @@ var PaymentRow = React.createClass({displayName: 'PaymentRow',
 
 var PaymentTable = React.createClass({displayName: 'PaymentTable',
   render: function() {
-    var paymentRows = this.props.getPayments().map(function(data, i){
-      console.log(data);
+    var paymentRows = this.props.getPayments().map(function(data, i) {
       return (
         React.createElement(PaymentRow, {
           key: i+1, 
