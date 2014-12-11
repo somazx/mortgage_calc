@@ -130,8 +130,7 @@ var PaymentRow = React.createClass({displayName: 'PaymentRow',
 
 var PaymentTable = React.createClass({displayName: 'PaymentTable',
   render: function() {
-    var paymentRows = this.props.getPayments().map(function(data, i){
-      console.log(data);
+    var paymentRows = this.props.getPayments().map(function(data, i) {
       return (
         React.createElement(PaymentRow, {
           key: i+1, 

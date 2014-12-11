@@ -52,7 +52,6 @@ var CalculatorApp = React.createClass({
         balance:   principal
       });
     }
-    console.log(payments[0]);
 
     return payments;
   },
