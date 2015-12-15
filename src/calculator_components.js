@@ -1,9 +1,9 @@
 /*
   Andy's amazing first attempt at working with React.JS
   copyright 2014 to forever and infinity by Andy Koch
-  developer ninja amassador to awesome.
+  developer ninja ambassador to awesome.
 
-  Now stand back, and let me work code maijck.
+  Now stand back, and let me work code majick.
 */
 "use strict";
 
@@ -29,7 +29,7 @@ var HomePriceSlider = React.createClass({
   render: function() {
     return (
       <input type="range" className={this.props.className}
-        min="20000" max="1000000" step="10000"
+        min="20000" max="2000000" step="10000"
         value={this.props.homePrice}
         onChange={this.updateHomePrice} />
     );
