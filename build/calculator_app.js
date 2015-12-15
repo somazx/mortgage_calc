@@ -122,7 +122,7 @@ var CalculatorApp = React.createClass({
       { className: 'row' },
       React.createElement(
         'div',
-        { className: 'col-md-6' },
+        { className: 'col-md-12' },
         React.createElement(
           'form',
           { role: 'form', className: 'form-horizontal' },
@@ -136,7 +136,7 @@ var CalculatorApp = React.createClass({
             ),
             React.createElement(
               'div',
-              { className: 'input-group input-group-lg' },
+              { className: 'input-group input-group-sm' },
               React.createElement(
                 'span',
                 { className: 'input-group-addon' },
@@ -161,7 +161,7 @@ var CalculatorApp = React.createClass({
             ),
             React.createElement(
               'div',
-              { className: 'input-group input-group-lg' },
+              { className: 'input-group input-group-sm' },
               React.createElement(
                 'span',
                 { className: 'input-group-addon' },
@@ -192,7 +192,7 @@ var CalculatorApp = React.createClass({
             ),
             React.createElement(
               'div',
-              { className: 'input-group input-group-lg' },
+              { className: 'input-group input-group-sm' },
               React.createElement(
                 'span',
                 { className: 'input-group-addon' },
@@ -210,7 +210,7 @@ var CalculatorApp = React.createClass({
               { className: 'row' },
               React.createElement(
                 'div',
-                { className: 'col-lg-6' },
+                { className: 'col-sm-6' },
                 React.createElement(
                   'label',
                   { htmlFor: 'interestRate' },
@@ -218,7 +218,7 @@ var CalculatorApp = React.createClass({
                 ),
                 React.createElement(
                   'div',
-                  { className: 'input-group input-group-lg' },
+                  { className: 'input-group input-group-sm' },
                   React.createElement(InterestRate, {
                     className: 'form-control',
                     onChange: this.onChange,
@@ -232,7 +232,7 @@ var CalculatorApp = React.createClass({
               ),
               React.createElement(
                 'div',
-                { className: 'col-lg-6' },
+                { className: 'col-sm-6' },
                 React.createElement(
                   'label',
                   { htmlFor: 'amortizationPeriod' },
@@ -240,7 +240,7 @@ var CalculatorApp = React.createClass({
                 ),
                 React.createElement(
                   'div',
-                  { className: 'input-group input-group-lg' },
+                  { className: 'input-group input-group-sm' },
                   React.createElement(AmortizationPeriod, {
                     className: 'form-control',
                     onChange: this.onChange,
@@ -257,7 +257,7 @@ var CalculatorApp = React.createClass({
               { className: 'row' },
               React.createElement(
                 'div',
-                { className: 'col-lg-6' },
+                { className: 'col-sm-6' },
                 React.createElement(
                   'label',
                   { htmlFor: 'paymentFrequency' },
@@ -265,7 +265,7 @@ var CalculatorApp = React.createClass({
                 ),
                 React.createElement(
                   'div',
-                  { className: 'input-group input-group-lg' },
+                  { className: 'input-group input-group-sm' },
                   React.createElement(PaymentFrequency, { className: 'form-control',
                     onChange: this.onChange,
                     paymentFrequency: this.state.paymentFrequency })
@@ -281,7 +281,7 @@ var CalculatorApp = React.createClass({
               { className: 'row' },
               React.createElement(
                 'div',
-                { className: 'col-lg-6' },
+                { className: 'col-sm-6' },
                 React.createElement(
                   'label',
                   {
@@ -292,7 +292,7 @@ var CalculatorApp = React.createClass({
                 ),
                 React.createElement(
                   'div',
-                  { className: 'input-group input-group-lg' },
+                  { className: 'input-group input-group-sm' },
                   React.createElement(
                     'span',
                     { className: 'input-group-addon' },

@@ -120,11 +120,11 @@ var CalculatorApp = React.createClass({
 
     return (
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-md-12">
           <form role="form" className="form-horizontal">
             <div className="form-group">
               <label htmlFor="homePrice">Home Price</label>
-              <div className="input-group input-group-lg">
+              <div className="input-group input-group-sm">
                 <span className="input-group-addon">$</span>
                 <HomePrice
                   className="form-control"
@@ -137,7 +137,7 @@ var CalculatorApp = React.createClass({
             </div>
             <div className="form-group">
               <label htmlFor="depositAmount">Deposit Amount</label>
-              <div className="input-group input-group-lg">
+              <div className="input-group input-group-sm">
                 <span className="input-group-addon">$</span>
                 <DepositAmount
                   className="form-control"
@@ -153,7 +153,7 @@ var CalculatorApp = React.createClass({
             </div>
             <div className="form-group">
               <label htmlFor="loanAmount">Loan Amount</label>
-              <div className="input-group input-group-lg">
+              <div className="input-group input-group-sm">
                 <span className="input-group-addon">$</span>
                 <LoanAmount className="form-control"
                   loanAmount={loanAmount} />
@@ -161,9 +161,9 @@ var CalculatorApp = React.createClass({
             </div>
             <div className="form-group">
               <div className="row">
-                <div className="col-lg-6">
+                <div className="col-sm-6">
                   <label htmlFor="interestRate">Interest Rate</label>
-                  <div className="input-group input-group-lg">
+                  <div className="input-group input-group-sm">
                     <InterestRate
                       className="form-control"
                       onChange={this.onChange}
@@ -171,11 +171,11 @@ var CalculatorApp = React.createClass({
                     <span className="input-group-addon">%</span>
                   </div>
                 </div>
-                <div className="col-lg-6">
+                <div className="col-sm-6">
                   <label htmlFor="amortizationPeriod">
                     Amortization Period
                   </label>
-                  <div className="input-group input-group-lg">
+                  <div className="input-group input-group-sm">
                     <AmortizationPeriod
                       className="form-control"
                       onChange={this.onChange}
@@ -186,11 +186,11 @@ var CalculatorApp = React.createClass({
             </div>
             <div className="form-group">
               <div className="row">
-                <div className="col-lg-6">
+                <div className="col-sm-6">
                   <label htmlFor="paymentFrequency">
                     Payment Frequency
                   </label>
-                  <div className="input-group input-group-lg">
+                  <div className="input-group input-group-sm">
                     <PaymentFrequency className="form-control"
                       onChange={this.onChange}
                       paymentFrequency={this.state.paymentFrequency}/>
@@ -200,11 +200,11 @@ var CalculatorApp = React.createClass({
             </div>
             <div className="form-group">
               <div className="row">
-                <div className="col-lg-6">
+                <div className="col-sm-6">
                   <label
                     htmlFor="paymentAmount"
                     className="text-primary">{this.state.paymentFrequency} Payment Amount</label>
-                  <div className="input-group input-group-lg">
+                  <div className="input-group input-group-sm">
                     <span className="input-group-addon">$</span>
                     <PaymentAmount className="form-control"
                       paymentAmount={paymentAmount} />
