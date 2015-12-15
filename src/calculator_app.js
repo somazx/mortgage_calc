@@ -214,15 +214,6 @@ var CalculatorApp = React.createClass({
             </div>
           </form>
         </div>
-
-        <div className="col-md-6">
-          <YearlyPaymentsChart width={400} height={300}
-            loanAmount={loanAmount}
-            paymentAmount={paymentAmount} />
-          <PaymentTable
-            loanAmount={loanAmount}
-            getPayments={this.calcPayments}/>
-        </div>
       </div>
     );
   }
