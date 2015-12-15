@@ -37,3 +37,7 @@
     width: 19.2%;
     float: left;
 }
+
+#calculator input[type=range] {
+    margin-top: 6px;
+}
