@@ -11,4 +11,4 @@ Simple mortgage calculator that compounds interest monthly.
 
 ## Demo ##
 
-http://somazx.github.io/mortgage_calc/
+https://somazx.github.io/mortgage_calc/
